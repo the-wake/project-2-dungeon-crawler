@@ -1,0 +1,27 @@
+{
+  "name": "project-2-dungeon-crawler",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/the-wake/project-2-dungeon-crawler.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/the-wake/project-2-dungeon-crawler/issues"
+  },
+  "homepage": "https://github.com/the-wake/project-2-dungeon-crawler#readme",
+  "dependencies": {
+    "express": "^4.17.2",
+    "handlebars": "^4.7.7",
+    "path": "^0.12.7",
+    "sequelize": "^6.15.0"
+  }
+}
