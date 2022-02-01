@@ -1,0 +1,1 @@
+// Normal user account things: ID, name, email, password.

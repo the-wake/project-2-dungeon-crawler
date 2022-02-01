@@ -19,8 +19,15 @@
   },
   "homepage": "https://github.com/the-wake/project-2-dungeon-crawler#readme",
   "dependencies": {
+    "bootstrap": "^5.1.3",
+    "connect-session-sequelize": "^7.1.2",
+    "controllers": "^0.0.2",
+    "dotenv": "^15.0.0",
     "express": "^4.17.2",
+    "express-handlebars": "^6.0.2",
+    "express-session": "^1.17.2",
     "handlebars": "^4.7.7",
+    "mysql2": "^2.3.3",
     "path": "^0.12.7",
     "sequelize": "^6.15.0"
   }
