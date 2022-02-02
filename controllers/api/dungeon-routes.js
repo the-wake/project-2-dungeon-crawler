@@ -1,25 +1,27 @@
-const router = require ('express').Router();
-const { Dungeon } = require('../../models/Dungeon.js');
+const router = require('express').Router();
+// const { Dungeon } = require('../../models/Dungeon.js');
 
 
 router.get('/', (req, res) => {
-    res.render('index');
+    // res.render('index');
+    res.status(200).json("dungeon")
+
 });
 
 
 
 router.get('/list', (req, res) => {
-    Dungeon.findAll().then(dungeonData => {
-        res.render('dungeonList', dungeonData.dataValues);
-    })
+    // Dungeon.findAll().then(dungeonData => {
+    //     res.render('dungeonList', dungeonData.dataValues);
+    // })
 })
 
 
 router.post('/add-dungeon', (req, res) => {
-    console.log(req.body);
-    Dungeon.create(req.body).then(data => {
-        console.log('Dungeon posted.')
-    })
+    // console.log(req.body);
+    // Dungeon.create(req.body).then(data => {
+    //     console.log('Dungeon posted.')
+    // })
 })
 
 module.exports = router;
