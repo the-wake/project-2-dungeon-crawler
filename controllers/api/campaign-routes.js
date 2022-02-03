@@ -2,8 +2,13 @@ const router = require('express').Router();
 const { Campaign } = require('../../models');
 
 // /api/campaign
-router.get('/', async (req, res) => {
-    Campaign.findAll().then(campaignData => {
+router.get('/', (req, res) => {
+    Campaign.findAll({
+        where: {
+            is_active: true
+        }
+    }
+    ).then(campaignData => {
         const campaigns = campaignData.map((camps) => camps.get({ plain: true }));
         res.render('campaign', { campaigns });
     })
