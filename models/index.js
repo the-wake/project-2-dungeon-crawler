@@ -3,11 +3,8 @@ const Dungeon = require('./Dungeon.js');
 const Room = require('./Room.js');
 const Creature = require('./Creature.js');
 const Doodad = require('./Doodad.js');
-// const Blurb = require('./Blurb.js');
+const Connection = require('./Connection.js');
 
-// ASK ABOUT:
-// * How to refer rooms to rooms (for connections) foreign-key-wise.
-// * How to tie creatures to dungeons through rooms.
 
 Campaign.hasMany(Dungeon, {
     foreignKey: 'campaign_id',
@@ -44,26 +41,14 @@ Doodad.belongsTo(Room, {
     foreignKey: 'room_id',
 });
 
+Room.hasMany(Connection, {
+    foreignKey: 'origin_id',
+    onDelete: 'CASCADE',
+});
 
-// Room.hasMany(Blurb, {
-//     foreignKey: 'room_id',
-//     onDelete: 'CASCADE',
-// });
-
-// Not certain how to tie creatures directly to dungeons.
-// Dungeon.hasMany(Creature, {
-//     through: {
-//         model: DungeonCreature,
-//         unique: false,
-//     },
-// });
-
-// Creature.belongsTo(Dungeon, {
-//     through: {
-//         model: DungeonCreature,
-//         unique: false,
-//     },
-// });
+Connection.belongsTo(Room, {
+    foreignKey: 'origin_id',
+});
 
 
 module.exports = {
@@ -72,4 +57,5 @@ module.exports = {
     Room,
     Creature,
     Doodad,
+    Connection,
 };
