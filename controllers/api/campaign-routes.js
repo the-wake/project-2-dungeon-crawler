@@ -14,6 +14,18 @@ router.get('/', (req, res) => {
     })
 });
 
+router.get('/update', (req, res) => {
+    Campaign.findAll({
+        where: {
+            is_active: true
+        }
+    }
+    ).then(campaignData => {
+        const campaigns = campaignData.map((camps) => camps.get({ plain: true }));
+        res.render('update-campaign', { campaigns });
+    })
+});
+
 // route to get one campaign
 router.get('/id/:id', async (req, res) => {
     try {
@@ -33,9 +45,6 @@ router.get('/id/:id', async (req, res) => {
 router.get('/add', (req, res) => {
     res.render('add-campaign');
 });
-// router.get('/', (req, res) => {
-//     res.render('addEmp');
-// });
 
 //add a campaign
 router.post('/add-campaign', (req, res) => {
@@ -46,22 +55,31 @@ router.post('/add-campaign', (req, res) => {
     })
 })
 
-
+// router.get('/update', (req, res) => {
+//     res.render('update-campaign');
+// });
 //update campaign by id
-router.put('/:id', async (req, res) => {
+// res.send(`params = ${req.params.data}, Query = ${req.query}`)
+
+router.post('/', async (req, res) => {
+    console.log(req.body);
     try {
         const campUpdate = await Campaign.update(
             {
-                name: req.body.name,
+                name: req.body.updatedname,
             },
             {
                 where: {
-                    id: req.params.id,
+                    name: req.body.originalname,
                 },
             }
         );
-        res.status(200).json("Sucessfully updated capaign name");
-        // res.redirect('/api/campaign');
+        // console.log(req.query.name)
+        // console.log(req.query.id)
+        console.log(campUpdate);
+
+        // res.status(200).json("Sucessfully updated capaign name");
+        res.redirect('/api/campaign');
 
     } catch (err) {
         res.status(500).json(err);
