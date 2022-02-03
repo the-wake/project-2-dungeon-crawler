@@ -1,11 +1,84 @@
 const router = require('express').Router();
-// const { Campaign } = require('../../models');
+const { Campaign } = require('../../models');
 
-
+// /api/campaign
 router.get('/', async (req, res) => {
-    // res.render('home-page');
-    res.status(200).json("campaign")
-
-
+    Campaign.findAll().then(campaignData => {
+        const campaigns = campaignData.map((camps) => camps.get({ plain: true }));
+        res.render('campaign', { campaigns });
+    })
 });
+
+//get campaign by id
+//TODO: this is only working when console log value is on campaign page either create new campaign handlebar or find a way to pass correctly
+router.get('/:id', async (req, res) => {
+    try {
+        const campaigns = await Campaign.findByPk(req.params.id);
+        if (!campaigns) {
+            res.status(404).json({ message: 'No campaign with this id!' });
+            return;
+        }
+        // const campaigns = campaignData.get({ plain: true });
+        //dataValues.name on next page
+        res.render('campaign', campaigns);
+        console.log(campaigns.dataValues.name)
+    } catch (err) {
+        res.status(500).json(err);
+    };
+});
+
+
+//add a campaign
+router.post('/add-campaign', (req, res) => {
+    console.log(req.body);
+    Campaign.create(req.body).then(data => {
+        console.log('Campaign posted.')
+        res.redirect('/api/campaign');
+    })
+})
+
+
+//update campaign by id
+router.put('/:id', async (req, res) => {
+    try {
+        const campUpdate = await Campaign.update(
+            {
+                name: req.body.name,
+            },
+            {
+                where: {
+                    id: req.params.id,
+                },
+            }
+        );
+        res.status(200).json("Sucessfully updated capaign name");
+        // res.redirect('/api/campaign');
+
+    } catch (err) {
+        res.status(500).json(err);
+    }
+});
+
+
+//deactivate campaign
+router.put('/delete/:delete', async (req, res) => {
+    try {
+        const deactivate = await Campaign.update(
+            {
+                is_active: req.body.is_active,
+            },
+            {
+                where: {
+                    id: req.params.delete,
+                },
+            }
+        );
+        res.status(200).json("Sucessfully 'deleted' capaign");
+        console.log(req.body)
+
+    } catch (err) {
+        res.status(500).json(err);
+    }
+});
+
 module.exports = router;
