@@ -15,7 +15,7 @@ router.get('/', (req, res) => {
 });
 
 // route to get one campaign
-router.get('/:id', async (req, res) => {
+router.get('/id/:id', async (req, res) => {
     try {
         const campData = await Campaign.findByPk(req.params.id);
         if (!campData) {
@@ -30,6 +30,12 @@ router.get('/:id', async (req, res) => {
     };
 });
 
+router.get('/add', (req, res) => {
+    res.render('add-campaign');
+});
+// router.get('/', (req, res) => {
+//     res.render('addEmp');
+// });
 
 //add a campaign
 router.post('/add-campaign', (req, res) => {
