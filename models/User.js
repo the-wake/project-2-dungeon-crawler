@@ -1,4 +1,3 @@
-// Normal user account things: ID, name, email, password.
 const { Model, DataTypes } = require('sequelize');
 const bcrypt = require('bcrypt');
 const sequelize = require('../config/connection');
