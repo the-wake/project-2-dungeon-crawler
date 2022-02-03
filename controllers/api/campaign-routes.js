@@ -9,19 +9,17 @@ router.get('/', async (req, res) => {
     })
 });
 
-//get campaign by id
-//TODO: this is only working when console log value is on campaign page either create new campaign handlebar or find a way to pass correctly
+// route to get one campaign
 router.get('/:id', async (req, res) => {
     try {
-        const campaigns = await Campaign.findByPk(req.params.id);
-        if (!campaigns) {
+        const campData = await Campaign.findByPk(req.params.id);
+        if (!campData) {
             res.status(404).json({ message: 'No campaign with this id!' });
             return;
         }
-        // const campaigns = campaignData.get({ plain: true });
-        //dataValues.name on next page
+        const campaigns = campData.get({ plain: true });
         res.render('campaign', campaigns);
-        console.log(campaigns.dataValues.name)
+        console.log(campaigns)
     } catch (err) {
         res.status(500).json(err);
     };
