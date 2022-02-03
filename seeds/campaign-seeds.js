@@ -4,6 +4,13 @@ const campaignData = [
     {
         name: 'Princes of the Apocalypse',
     },
+    {
+        name: 'Curse of Strahd',
+    },
+    {
+        name: 'Out of the Abyss',
+        is_active: false,
+    }
 ];
 
 
