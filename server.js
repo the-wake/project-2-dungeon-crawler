@@ -9,6 +9,7 @@ const { strict } = require('assert');
 const routes = require('./controllers');
 const sequelize = require ('./config/connection.js');
 const helpers = require('./utils/helpers');
+const req = require('express/lib/request');
 
 const app = express();
 const PORT = process.env.PORT || 3001;
@@ -17,12 +18,13 @@ const sess = {
   secret: 'Super secret secret',
   cookie: {
     maxAge: 84000,
+    name:'uniqueID'
     // httpOnly: true,
     // secure: false,
     // sameSite: 'strict',
   },
   resave: false,
-  saveUninitialized: true,
+  saveUninitialized: true, //false?
   // Sets up session store
   store: new SequelizeStore({
     db: sequelize,

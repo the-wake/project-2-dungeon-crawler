@@ -9,7 +9,7 @@ const doodadRoutes = require('./doodad-routes');
 const blurbRoutes = require('./blurb-routes');
 
 
-router.use('/users', userRoutes);
+router.use('/user-routes', userRoutes);
 router.use('/campaign', campaignRoutes);
 router.use('/dungeon', dungeonRoutes);
 router.use('/room', roomRoutes);
