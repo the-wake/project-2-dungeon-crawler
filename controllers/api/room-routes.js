@@ -1,8 +1,9 @@
 const router = require('express').Router();
 const { Room } = require('../../models');
+const withAuth = require('../../utils/auth.js')
 
 //get all rooms
-router.get('/', async (req, res) => {
+router.get('/', withAuth, async (req, res) => {
     Room.findAll({
         where: {
             is_active: true
@@ -14,7 +15,7 @@ router.get('/', async (req, res) => {
 });
 
 //get room by id
-router.get('/:id', async (req, res) => {
+router.get('/:id', withAuth, async (req, res) => {
     try {
         const roomData = await Room.findByPk(req.params.id);
         if (!roomData) {
@@ -30,7 +31,7 @@ router.get('/:id', async (req, res) => {
 });
 
 //add a room
-router.post('/add-room', (req, res) => {
+router.post('/add-room', withAuth, (req, res) => {
     console.log(req.body);
     Room.create(req.body).then(data => {
         console.log('Room posted.')
@@ -39,7 +40,7 @@ router.post('/add-room', (req, res) => {
 });
 
 //update room by id
-router.put('/:id', async (req, res) => {
+router.put('/:id', withAuth, async (req, res) => {
     try {
         const roomUpdate = await Room.update(
             {
@@ -62,7 +63,7 @@ router.put('/:id', async (req, res) => {
 //deactivate room
 ///Dont think that we need this, just deactivate the whole campaign
 //maybe a delete to actually delete the room if needed
-router.put('/delete/:delete', async (req, res) => {
+router.put('/delete/:delete', withAuth, async (req, res) => {
     try {
         const deactivate = await Room.update(
             {

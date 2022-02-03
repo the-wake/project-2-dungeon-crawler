@@ -1,8 +1,9 @@
 const router = require('express').Router();
 const { Campaign } = require('../../models');
+const withAuth = require('../../utils/auth.js')
 
 // /api/campaign
-router.get('/', (req, res) => {
+router.get('/', withAuth, (req, res) => {
     Campaign.findAll({
         where: {
             is_active: true
@@ -14,7 +15,7 @@ router.get('/', (req, res) => {
     })
 });
 
-router.get('/update', (req, res) => {
+router.get('/update', withAuth, (req, res) => {
     Campaign.findAll({
         where: {
             is_active: true
@@ -27,7 +28,7 @@ router.get('/update', (req, res) => {
 });
 
 // route to get one campaign
-router.get('/id/:id', async (req, res) => {
+router.get('/id/:id', withAuth, async (req, res) => {
     try {
         const campData = await Campaign.findByPk(req.params.id);
         if (!campData) {
@@ -42,12 +43,12 @@ router.get('/id/:id', async (req, res) => {
     };
 });
 
-router.get('/add', (req, res) => {
+router.get('/add', withAuth, (req, res) => {
     res.render('add-campaign');
 });
 
 //add a campaign
-router.post('/add-campaign', (req, res) => {
+router.post('/add-campaign', withAuth, (req, res) => {
     console.log(req.body);
     Campaign.create(req.body).then(data => {
         console.log('Campaign posted.')
@@ -61,7 +62,7 @@ router.post('/add-campaign', (req, res) => {
 //update campaign by id
 // res.send(`params = ${req.params.data}, Query = ${req.query}`)
 
-router.post('/', async (req, res) => {
+router.post('/', withAuth, async (req, res) => {
     console.log(req.body);
     try {
         const campUpdate = await Campaign.update(
@@ -88,7 +89,7 @@ router.post('/', async (req, res) => {
 
 
 //deactivate campaign
-router.put('/delete/:delete', async (req, res) => {
+router.put('/delete/:delete', withAuth, async (req, res) => {
     try {
         const deactivate = await Campaign.update(
             {
