@@ -3,7 +3,11 @@ const { Room } = require('../../models');
 
 //get all rooms
 router.get('/', async (req, res) => {
-    Room.findAll().then(roomData => {
+    Room.findAll({
+        where: {
+            is_active: true
+        }
+    }).then(roomData => {
         const rooms = roomData.map((rms) => rms.get({ plain: true }));
         res.render('room', { rooms });
     })
@@ -56,29 +60,6 @@ router.put('/:id', async (req, res) => {
     }
 });
 
-
-//deactivate room
-///Dont think that we need this, just deactivate the whole campaign
-//maybe a delete to actually delete the room if needed
-router.put('/delete/:delete', async (req, res) => {
-    try {
-        const deactivate = await Room.update(
-            {
-                is_active: req.body.is_active,
-            },
-            {
-                where: {
-                    id: req.params.delete,
-                },
-            }
-        );
-        res.status(200).json("Sucessfully 'deleted' room");
-        console.log(req.body)
-
-    } catch (err) {
-        res.status(500).json(err);
-    }
-});
 
 
 module.exports = router;
