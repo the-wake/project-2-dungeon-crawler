@@ -1,27 +1,27 @@
 const router = require('express').Router();
 // const { Dungeon } = require('../../models/Dungeon.js');
+const { Dungeon } = require('../../models');
 
 
 router.get('/', (req, res) => {
-    // res.render('index');
-    res.status(200).json("dungeon")
-
+    Dungeon.findAll().then(dungeonData => {
+        const dungeons = dungeonData.map((duns) => duns.get({ plain: true }));
+        res.render('dungeon', { dungeons });
+    })
 });
 
+//TODO: find dungeon by id, maybe find by campaign
+//TODO: find rooms attached to dungeon
 
-
-router.get('/list', (req, res) => {
-    // Dungeon.findAll().then(dungeonData => {
-    //     res.render('dungeonList', dungeonData.dataValues);
-    // })
-})
-
-
+//Adds dungeon and then redirects to main dungeon page
 router.post('/add-dungeon', (req, res) => {
-    // console.log(req.body);
-    // Dungeon.create(req.body).then(data => {
-    //     console.log('Dungeon posted.')
-    // })
+    console.log(req.body);
+    Dungeon.create(req.body).then(data => {
+        console.log('Dungeon posted.')
+        res.redirect('/api/dungeon');
+    })
 })
+
+
 
 module.exports = router;
