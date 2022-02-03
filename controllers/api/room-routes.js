@@ -59,6 +59,28 @@ router.put('/:id', async (req, res) => {
         res.status(500).json(err);
     }
 });
+//deactivate room
+///Dont think that we need this, just deactivate the whole campaign
+//maybe a delete to actually delete the room if needed
+router.put('/delete/:delete', async (req, res) => {
+    try {
+        const deactivate = await Room.update(
+            {
+                is_active: req.body.is_active,
+            },
+            {
+                where: {
+                    id: req.params.delete,
+                },
+            }
+        );
+        res.status(200).json("Sucessfully 'deleted' room");
+        console.log(req.body)
+
+    } catch (err) {
+        res.status(500).json(err);
+    }
+});
 
 
 
