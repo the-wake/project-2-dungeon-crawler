@@ -1,8 +1,12 @@
 const router = require('express').Router();
 const { Dungeon } = require('../../models');
 const withAuth = require('../../utils/auth.js')
+//endpoint /api/dungeon
 
+//TODO: find dungeon by id, maybe find by campaign
+//TODO: find rooms attached to dungeon
 
+//get all dungeons
 router.get('/', withAuth, (req, res) => {
     Dungeon.findAll({
         where: {
@@ -14,9 +18,20 @@ router.get('/', withAuth, (req, res) => {
     })
 });
 
-//TODO: find dungeon by id, maybe find by campaign
+//get route for updating dungeon
+router.get('/update', withAuth, (req, res) => {
+    Dungeon.findAll({
+        where: {
+            is_active: true
+        }
+    }).then(dungeonData => {
+        const dungeons = dungeonData.map((duns) => duns.get({ plain: true }));
+        res.render('update-dungeon', { dungeons });
+    })
+});
+
 // route to get one dungeon
-router.get('/:id', withAuth, async (req, res) => {
+router.get('/id/:id', withAuth, async (req, res) => {
     try {
         const dunData = await Dungeon.findByPk(req.params.id);
         if (!dunData) {
@@ -30,37 +45,44 @@ router.get('/:id', withAuth, async (req, res) => {
         res.status(500).json(err);
     };
 });
-//TODO: find rooms attached to dungeon
 
-//Adds dungeon and then redirects to main dungeon page
-router.post('/add-dungeon', withAuth, (req, res) => {
-    console.log(req.body);
-    Dungeon.create(req.body).then(data => {
-        console.log('Dungeon posted.')
-        res.redirect('/api/dungeon');
+//add route renders add-dungeon and redirects to dungeon after input
+router.route('/add')
+    .get(withAuth, (req, res) => {
+        res.render('add-dungeon');
     })
-});
+    .post(withAuth, (req, res) => {
+        console.log(req.body);
+        Dungeon.create(req.body).then(data => {
+            console.log('Dungeon posted.')
+            res.redirect('/api/dungeon');
+        })
+    });
 
-//update dungeon by id
-router.put('/:id', withAuth, async (req, res) => {
+
+//Update dungeon then redirects to main dungeon page
+router.post('/', withAuth, async (req, res) => {
+    console.log(req.body);
     try {
         const dunUpdate = await Dungeon.update(
             {
-                name: req.body.name,
+                name: req.body.updatedname,
             },
             {
                 where: {
-                    id: req.params.id,
+                    name: req.body.originalname,
                 },
             }
         );
-        res.status(200).json("Sucessfully updated dungeon name");
-        // res.redirect('/api/dungeon');
+        // console.log(dunUpdate);
+        res.redirect('/api/dungeon');
 
     } catch (err) {
         res.status(500).json(err);
     }
 });
+
+
 
 //deactivate dungeon
 router.put('/delete/:delete', withAuth, async (req, res) => {
