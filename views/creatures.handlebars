@@ -1,0 +1,10 @@
+<h2>Creature List</h2>
+{{#if name}}
+<a class="btn btn-outline-danger" href="#" role="button">{{name}}</a>
+{{/if}}
+{{#each creatures as |creature|}}
+<div>
+    <a class="btn btn-outline-danger" href="#" role="button">{{dungeon.name}}</a>
+    <p>Dungeon ID #{{dungeon.id}}</p>
+</div>
+{{/each}}

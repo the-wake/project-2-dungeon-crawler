@@ -3,36 +3,36 @@ const { Creature } = require('../models');
 const creatureData = [
     {
         name: 'Aerisi Kalinoth',
-        room_id: 4,
+        in_room: 'H2: Cold Room',
         hp: 100,
-        loot: 'Windvane\nRing of Invisibility',
-        keyNpc: true,
+        loot: 'Windvane, Ring of Invisibility',
+        key_npc: true,
     },
     {
         name: 'Yan-C-Bin',
-        room_id: 4,
+        in_room: 'H2: Cold Room',
         hp: 200,
-        keyNpc: true,
+        key_npc: true,
     },
     {
         name: 'Meheman',
-        room_id: 3,
+        in_room: 'H1: Cavern',
         hp: 10,
         loot: 'Potion of Invisibility',
     },
     {
         name: 'Gar Shatterkeel',
-        room_id: 6,
+        in_room: 'P2: Wet Room',
         hp: 125,
         loot: 'Drown',
-        keyNpc: true,
+        key_npc: true,
     },
     {
         name: 'Vannifer',
-        room_id: 10,
+        in_room: 'W2: Hot Room',
         hp: 140,
         loot: 'Tinderstrike',
-        keyNpc: true,
+        key_npc: true,
     },
 ];
 

@@ -15,6 +15,15 @@ Creature.init(
             type: DataTypes.STRING,
             allowNull: false,
         },
+        // If creating a creature from a room, we can make this auto-fill to the currently focused room in the API call.
+        in_room: {
+            type: DataTypes.STRING,
+            allowNull: true,
+            references: {
+                model: 'room',
+                key: 'name',
+            },
+        },
         // This could be filled by an API call that would either put in average value or roll for hp.
         hp: {
             type: DataTypes.INTEGER,
@@ -24,7 +33,7 @@ Creature.init(
             type: DataTypes.STRING,
             allowNull: true,
         },
-        keyNpc: {
+        key_npc: {
             type: DataTypes.BOOLEAN,
             allowNull: false,
             defaultValue: false,
@@ -33,14 +42,6 @@ Creature.init(
             type: DataTypes.BOOLEAN,
             allowNull: false,
             defaultValue: true,
-        },
-        // If creating a creature from a room, we can make this auto-fill to the currently focused room in the API call.
-        room_id: {
-            type: DataTypes.INTEGER,
-            references: {
-                model: 'room',
-                key: 'id',
-            },
         },
     },
     {
