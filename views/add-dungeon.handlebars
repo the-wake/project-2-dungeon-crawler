@@ -1,9 +1,18 @@
-<h2>Add New Dungeon</h2>
+<h2>Add a new dungeon</h2>
 
-<form>
+<div class="container">
+  <form action="/api/dungeon/add" method="POST">
+    <div class="mb-3">
+      <label for="dungeon-name" class="form-label">What is your dungeon name?</label>
+      <input name="name" type="text" class="form-control" id="dungeon-name" aria-describedby="dungeon-name">
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+  </form>
+</div>
+{{!-- <form>
   <div class="form-group">
     <label for="roomName">Dungeon Name</label>
     <input name="roomName" type="text" id="roomName" required>
   </div>
-</form>
+</form> --}}
 {{!-- Probably want to make them already have a campaign focused, and populate that in automatically. --}}

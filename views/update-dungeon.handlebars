@@ -1,17 +1,17 @@
-<h2>Update campaign name</h2>
+<h2>Update dungeon name</h2>
 <div class="container">
-    <form action="/api/campaign/" method="POST">
+    <form action="/api/dungeon/" method="POST">
         <div class="form-group">
-            <label for="exampleFormControlSelect2">What campaign would you like to update?</label>
+            <label for="exampleFormControlSelect2">What dungeon would you like to update?</label>
             <select multiple name='originalname' class="form-control" id="exampleFormControlSelect2">
-                {{#each campaigns as |campaign|}}
-                <option>{{campaign.name}}</option>
+                {{#each dungeons as |dungeon|}}
+                <option>{{dungeon.name}}</option>
                 {{/each}}
             </select>
         </div>
 
         <div class="mb-3">
-            <label for="campaign-name" class="form-label">What is your new Campaign name?</label>
+            <label for="campaign-name" class="form-label">What is your new dungeon name?</label>
             <input type="text" name="updatedname" class="form-control" id="campaign-name"
                 aria-describedby="campaign-name">
         </div>

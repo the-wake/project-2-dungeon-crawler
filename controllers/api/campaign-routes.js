@@ -1,8 +1,9 @@
 const router = require('express').Router();
 const { Campaign } = require('../../models');
 const withAuth = require('../../utils/auth.js')
+//endpoint /api/campaign
 
-// /api/campaign
+//route to get all campaigns
 router.get('/', withAuth, (req, res) => {
     Campaign.findAll({
         where: {
@@ -15,6 +16,7 @@ router.get('/', withAuth, (req, res) => {
     })
 });
 
+//get route for updating campaign
 router.get('/update', withAuth, (req, res) => {
     Campaign.findAll({
         where: {
@@ -43,25 +45,21 @@ router.get('/id/:id', withAuth, async (req, res) => {
     };
 });
 
-router.get('/add', withAuth, (req, res) => {
-    res.render('add-campaign');
-});
-
-//add a campaign
-router.post('/add-campaign', withAuth, (req, res) => {
-    console.log(req.body);
-    Campaign.create(req.body).then(data => {
-        console.log('Campaign posted.')
-        res.redirect('/api/campaign');
+//routes for add rending add-campaign and then redirecting to campaign after input
+router.route('/add')
+    .get(withAuth, (req, res) => {
+        res.render('add-campaign');
     })
-})
+    .post(withAuth, (req, res) => {
+        console.log(req.body);
+        Campaign.create(req.body).then(data => {
+            console.log('Campaign posted.')
+            res.redirect('/api/campaign');
+        })
+    });
 
-// router.get('/update', (req, res) => {
-//     res.render('update-campaign');
-// });
-//update campaign by id
-// res.send(`params = ${req.params.data}, Query = ${req.query}`)
 
+//update campaign by name then redirects to campaign page
 router.post('/', withAuth, async (req, res) => {
     console.log(req.body);
     try {
@@ -75,11 +73,7 @@ router.post('/', withAuth, async (req, res) => {
                 },
             }
         );
-        // console.log(req.query.name)
-        // console.log(req.query.id)
-        console.log(campUpdate);
-
-        // res.status(200).json("Sucessfully updated capaign name");
+        // console.log(campUpdate);
         res.redirect('/api/campaign');
 
     } catch (err) {
@@ -102,7 +96,7 @@ router.put('/delete/:delete', withAuth, async (req, res) => {
             }
         );
         res.status(200).json("Sucessfully 'deleted' capaign");
-        console.log(req.body)
+        console.log(req)
 
     } catch (err) {
         res.status(500).json(err);

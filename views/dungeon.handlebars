@@ -1,10 +1,10 @@
 <h2>Dungeon List</h2>
-<h2>{{name}}</h2>
-
+{{#if name}}
+<a class="btn btn-outline-danger" href="#" role="button">{{name}}</a>
+{{/if}}
 {{#each dungeons as |dungeon|}}
 <div>
-    <h3>{{dungeon.name}}</h3>
-    <p>{{dungeon.id}}</p>
-    {{!-- etc. --}}
+    <a class="btn btn-outline-danger" href="#" role="button">{{dungeon.name}}</a>
+    <p>Dungeon ID #{{dungeon.id}}</p>
 </div>
 {{/each}}
