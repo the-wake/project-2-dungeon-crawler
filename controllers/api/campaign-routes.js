@@ -12,7 +12,7 @@ router.get('/', withAuth, (req, res) => {
     }
     ).then(campaignData => {
         const campaigns = campaignData.map((camps) => camps.get({ plain: true }));
-        res.render('campaign', { campaigns });
+        res.render('campaign', { campaigns, loggedIn: req.session.loggedIn });
     })
 });
 
@@ -25,7 +25,7 @@ router.get('/update', withAuth, (req, res) => {
     }
     ).then(campaignData => {
         const campaigns = campaignData.map((camps) => camps.get({ plain: true }));
-        res.render('update-campaign', { campaigns });
+        res.render('update-campaign', { campaigns, loggedIn: req.session.loggedIn });
     })
 });
 
@@ -38,7 +38,7 @@ router.get('/id/:id', withAuth, async (req, res) => {
             return;
         }
         const campaigns = campData.get({ plain: true });
-        res.render('campaign', campaigns);
+        res.render('campaign', { campaigns, loggedIn: req.session.loggedIn });
         console.log(campaigns)
     } catch (err) {
         res.status(500).json(err);
@@ -48,11 +48,14 @@ router.get('/id/:id', withAuth, async (req, res) => {
 //routes for add rending add-campaign and then redirecting to campaign after input
 router.route('/add')
     .get(withAuth, (req, res) => {
-        res.render('add-campaign');
+        res.render('add-campaign', { loggedIn: req.session.loggedIn });
     })
     .post(withAuth, (req, res) => {
         console.log(req.body);
-        Campaign.create(req.body).then(data => {
+        Campaign.create({
+            ...req.body,
+            // user_id: req.session.userId,
+        }).then(data => {
             console.log('Campaign posted.')
             res.redirect('/api/campaign');
         })

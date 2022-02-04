@@ -10,7 +10,7 @@ router.get('/', withAuth, async (req, res) => {
         }
     }).then(roomData => {
         const rooms = roomData.map((rms) => rms.get({ plain: true }));
-        res.render('room', { rooms });
+        res.render('room', { rooms, loggedIn: req.session.loggedIn });
     })
 });
 
@@ -23,7 +23,7 @@ router.get('/:id', withAuth, async (req, res) => {
             return;
         }
         const rooms = roomData.get({ plain: true });
-        res.render('campaign', rooms);
+        res.render('campaign', { rooms, loggedIn: req.session.loggedIn });
         console.log(rooms)
     } catch (err) {
         res.status(500).json(err);

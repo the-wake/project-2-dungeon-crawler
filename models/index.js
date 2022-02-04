@@ -4,6 +4,7 @@ const Room = require('./Room.js');
 const Creature = require('./Creature.js');
 const Doodad = require('./Doodad.js');
 const Connection = require('./Connection.js');
+const User = require('./User.js');
 
 
 Campaign.hasMany(Dungeon, {
@@ -58,4 +59,5 @@ module.exports = {
     Creature,
     Doodad,
     Connection,
+    User,
 };
