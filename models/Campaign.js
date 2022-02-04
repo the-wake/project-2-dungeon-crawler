@@ -2,7 +2,7 @@
 const { Model, DataTypes } = require('sequelize');
 const sequelize = require('../config/connection.js');
 
-class Campaign extends Model {}
+class Campaign extends Model { }
 
 Campaign.init(
     {
@@ -21,13 +21,13 @@ Campaign.init(
             allowNull: false,
             defaultValue: true,
         },
-        user_id: {
-            type: DataTypes.INTEGER,
-            references: {
-                model: 'user',
-                key: 'id',
-            }
-        },
+        // user_id: {
+        //     type: DataTypes.INTEGER,
+        //     references: {
+        //         model: 'user',
+        //         key: 'id',
+        //     }
+        // },
     },
     {
         sequelize,

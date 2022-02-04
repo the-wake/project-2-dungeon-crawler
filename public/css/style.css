@@ -1,3 +1,9 @@
 .logout-link {
     cursor: pointer;
 }
+.btn{
+    color: #8b0000;
+}
+.btn:hover {
+    background-color: #8b0000; 
+}
