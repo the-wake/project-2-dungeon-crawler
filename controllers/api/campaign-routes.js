@@ -101,7 +101,7 @@ router.put('/delete/:delete', async (req, res) => {
             }
         );
         res.status(200).json("Sucessfully 'deleted' capaign");
-        console.log(req.body)
+        console.log(req)
 
     } catch (err) {
         res.status(500).json(err);
