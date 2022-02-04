@@ -30,16 +30,14 @@ router.get('/id/:id', withAuth, async (req, res) => {
     };
 });
 
-//add route
+//add creature
 router.route('/add')
     .get(withAuth, (req, res) => {
         res.render('add-creature', { loggedIn: req.session.loggedIn });
     })
     .post(withAuth, (req, res) => {
-        console.log(req.body);
         Creature.create(req.body).then(data => {
-            console.log('Creature created.')
-            res.redirect('/add');
+            res.status(200).redirect('/newcreature');
         })
     });
 
