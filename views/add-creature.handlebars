@@ -1,0 +1,43 @@
+<h2>Add a new dungeon</h2>
+
+<div class="container">
+  <form action="/api/creature/add" method="POST">
+    <div class="mb-3">
+
+      <label for="creature-name" class="form-label">Creature Name</label>
+      <input name="name" type="text" class="form-control" id="creature-name" aria-describedby="creature-name">
+      <br>
+      {{!-- <label for="creature-room" class="form-label">Current Room</label>
+      <input name="in_room" type="text" class="form-control" id="creature-room" aria-describedby="creature-room"> --}}
+      <select name="in_room" class="form-control" id="creature-room" aria-describedby="creature-room">
+        {{#each rooms as |room|}}
+        <option>{{room.name}}</option>
+        {{/each}}
+      </select>
+      <br>
+      <label for="creature-HP" class="form-label">HP</label>
+      <input name="hp" type="number" class="form-control" id="creature-hp" aria-describedby="creature-hp">
+      <br>
+      <label for="creature-loot" class="form-label">Loot</label>
+      <textarea name="loot" type="number" class="form-control" id="creature-loot" aria-describedby="loot"></textarea>
+      <br>
+      <label for="key-npc" class="form-label">Key NPC?</label>
+      <input name="key_npc" type="checkbox" class="form-check-input" value="1" id="key-npc">
+      <br>
+      <label for="is-alive" class="form-label">Is Alive?</label>
+      <input name="is_alive" type="checkbox" class="form-check-input" value="1" id="is-alive"
+        aria-describedby="is-alive" checked>
+
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+  </form>
+</div>
+
+
+{{!--
+<select multiple name='originalname' class="form-control" id="exampleFormControlSelect2">
+  {{#each dungeons as |dungeon|}}
+  <option>{{dungeon.name}}</option>
+  {{/each}}
+</select>
+--}}

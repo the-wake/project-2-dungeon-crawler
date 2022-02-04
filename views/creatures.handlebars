@@ -1,0 +1,12 @@
+<h2>Creature List</h2>
+{{#if name}}
+<a class="btn btn-outline-danger" href="#" role="button">{{name}}</a>
+{{/if}}
+{{#each creatures as |creature|}}
+<div>
+    <a class="btn btn-outline-danger" href="#" role="button">{{creature.name}}</a>
+    <p>Room: {{creature.in_room}}</p>
+    <p>Status: {{#if is_alive}}Alive{{else}}Dead{{/if}}</p>
+</div>
+{{/each}}
+{{!-- Could add a partial to these that lets each one display its stats when clicked. --}}

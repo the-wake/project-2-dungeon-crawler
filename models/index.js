@@ -26,11 +26,17 @@ Room.belongsTo(Dungeon, {
 });
 
 Room.hasMany(Creature, {
-    foreignKey: 'room_id',
+    foreignKey: {
+        name: 'in_room',
+        allowNull: true,
+    }
 });
 
 Creature.belongsTo(Room, {
-    foreignKey: 'room_id',
+    foreignKey: {
+        name: 'in_room',
+        allowNull: true,
+    }
 });
 
 Room.hasMany(Doodad, {
