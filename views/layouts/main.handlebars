@@ -17,14 +17,18 @@
   <div class="collapse navbar-collapse" id="navbarNavDropdown">
     <ul class="navbar-nav">
       <li class="nav-item active">
-        <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
+        <a class="nav-link" href="/">Home</span></a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="/login">Login</a>
+        {{#if loggedIn}}
+          <a class="nav-link logout-link">Sign Out</a>
+        {{else}}
+        <a class="nav-link" href="/login">Log In</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="/newuser">Sign-up</a>
+        <a class="nav-link" href="/newuser">Sign Up</a>
       </li>
+        {{/if}}
       {{!-- <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown"
           aria-haspopup="true" aria-expanded="false">
@@ -52,6 +56,9 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
     crossorigin="anonymous"></script>
+
+<script src="/js/logout.js"></script>
+
 </body>
 
 </html>

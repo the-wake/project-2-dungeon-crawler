@@ -14,7 +14,7 @@ router.get('/', withAuth, (req, res) => {
         }
     }).then(dungeonData => {
         const dungeons = dungeonData.map((duns) => duns.get({ plain: true }));
-        res.render('dungeon', { dungeons });
+        res.render('dungeon', { dungeons, loggedIn: req.session.loggedIn });
     })
 });
 
@@ -26,7 +26,7 @@ router.get('/update', withAuth, (req, res) => {
         }
     }).then(dungeonData => {
         const dungeons = dungeonData.map((duns) => duns.get({ plain: true }));
-        res.render('update-dungeon', { dungeons });
+        res.render('update-dungeon', { dungeons, loggedIn: req.session.loggedIn });
     })
 });
 
@@ -39,7 +39,7 @@ router.get('/id/:id', withAuth, async (req, res) => {
             return;
         }
         const dungeons = dunData.get({ plain: true });
-        res.render('dungeon', dungeons);
+        res.render('dungeon', { dungeons, loggedIn: req.session.loggedIn });
         // console.log(dungeons)
     } catch (err) {
         res.status(500).json(err);
@@ -49,7 +49,7 @@ router.get('/id/:id', withAuth, async (req, res) => {
 //add route renders add-dungeon and redirects to dungeon after input
 router.route('/add')
     .get(withAuth, (req, res) => {
-        res.render('add-dungeon');
+        res.render('add-dungeon', { loggedIn: req.session.loggedIn });
     })
     .post(withAuth, (req, res) => {
         console.log(req.body);
