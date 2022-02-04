@@ -1,9 +1,9 @@
 const router = require('express').Router();
-// const { Dungeon } = require('../../models/Dungeon.js');
 const { Dungeon } = require('../../models');
+const withAuth = require('../../utils/auth.js')
 
 
-router.get('/', (req, res) => {
+router.get('/', withAuth, (req, res) => {
     Dungeon.findAll({
         where: {
             is_active: true
@@ -16,7 +16,7 @@ router.get('/', (req, res) => {
 
 //TODO: find dungeon by id, maybe find by campaign
 // route to get one dungeon
-router.get('/:id', async (req, res) => {
+router.get('/:id', withAuth, async (req, res) => {
     try {
         const dunData = await Dungeon.findByPk(req.params.id);
         if (!dunData) {
@@ -33,7 +33,7 @@ router.get('/:id', async (req, res) => {
 //TODO: find rooms attached to dungeon
 
 //Adds dungeon and then redirects to main dungeon page
-router.post('/add-dungeon', (req, res) => {
+router.post('/add-dungeon', withAuth, (req, res) => {
     console.log(req.body);
     Dungeon.create(req.body).then(data => {
         console.log('Dungeon posted.')
@@ -42,7 +42,7 @@ router.post('/add-dungeon', (req, res) => {
 });
 
 //update dungeon by id
-router.put('/:id', async (req, res) => {
+router.put('/:id', withAuth, async (req, res) => {
     try {
         const dunUpdate = await Dungeon.update(
             {
@@ -61,8 +61,9 @@ router.put('/:id', async (req, res) => {
         res.status(500).json(err);
     }
 });
+
 //deactivate dungeon
-router.put('/delete/:delete', async (req, res) => {
+router.put('/delete/:delete', withAuth, async (req, res) => {
     try {
         const deactivate = await Dungeon.update(
             {
