@@ -4,9 +4,9 @@ const signupFormHandler = async function (event) {
   const usernameEl = document.querySelector('#username-signup').value;
   const emailEl = document.querySelector('#email-signup').value;
   const passwordEl = document.querySelector('#password-signup').value;
-  
+
   if (!usernameEl || !emailEl || !passwordEl) {
-    alert ('Please fill out all fields.')
+    alert('Please fill out all fields.')
   } else {
     const response = await fetch('/api/user', {
       method: 'POST',
@@ -20,7 +20,7 @@ const signupFormHandler = async function (event) {
 
     if (response.ok) {
       alert('Account created successfully!')
-      document.location.replace('/home-page');
+      document.location.replace('/');
     } else {
       alert('Failed to sign up.');
     }
