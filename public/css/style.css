@@ -7,3 +7,7 @@
 .btn:hover {
     background-color: #8b0000; 
 }
+
+.list-group-item {
+    font-size: 24px;
+}

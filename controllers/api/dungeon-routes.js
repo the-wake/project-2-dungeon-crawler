@@ -6,17 +6,6 @@ const withAuth = require('../../utils/auth.js')
 //TODO: find dungeon by id, maybe find by campaign
 //TODO: find rooms attached to dungeon
 
-//get all dungeons
-router.get('/', withAuth, (req, res) => {
-    Dungeon.findAll({
-        where: {
-            is_active: true
-        }
-    }).then(dungeonData => {
-        const dungeons = dungeonData.map((duns) => duns.get({ plain: true }));
-        res.render('dungeon', { dungeons, loggedIn: req.session.loggedIn });
-    })
-});
 
 //get route for updating dungeon
 router.get('/update', withAuth, (req, res) => {

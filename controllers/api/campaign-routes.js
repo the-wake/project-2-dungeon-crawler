@@ -3,19 +3,6 @@ const { Campaign } = require('../../models');
 const withAuth = require('../../utils/auth.js')
 //endpoint /api/campaign
 
-//route to get all campaigns
-router.get('/', withAuth, (req, res) => {
-    Campaign.findAll({
-        where: {
-            is_active: true
-        }
-    }
-    ).then(campaignData => {
-        const campaigns = campaignData.map((camps) => camps.get({ plain: true }));
-        res.render('campaign', { campaigns, loggedIn: req.session.loggedIn });
-    })
-});
-
 //get route for updating campaign
 router.get('/update', withAuth, (req, res) => {
     Campaign.findAll({

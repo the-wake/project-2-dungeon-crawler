@@ -1,0 +1,8 @@
+<h2>My Campaigns</h2>
+{{#each campaigns as |campaign|}}
+<div>
+    <a class="btn btn-outline-dark" href="/campaigns/{{id}}" role="button">{{name}}</a>
+    {{!-- <p>Campaign ID #{{id}}</p> --}}
+</div>
+<hr>
+{{/each}}

@@ -1,0 +1,9 @@
+<h2>{{creature.name}}{{#if creature.key_npc}}*{{/if}}</h2>
+<div class="card creature-card" style="width: 28rem;">
+    <ul class="list-group list-group-flush">
+        <li class="list-group-item">Room: {{creature.in_room}}</li>
+        <li class="list-group-item">HP: {{creature.hp}}</li>
+        <li class="list-group-item">Status: {{#if creature.is_alive}}Alive{{else}}Dead{{/if}}</li>
+        {{#if creature.loot}}<li class="list-group-item">Carrying: {{creature.loot}}</li>{{/if}}
+    </ul>
+</div>
