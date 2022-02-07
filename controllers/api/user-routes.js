@@ -9,15 +9,13 @@ router.post('/', async (req, res) => {
       email: req.body.email,
       password: req.body.password,
     });
-    
+
     // Set up sessions with a 'loggedIn' variable set to `true`
     req.session.save(() => {
       req.session.loggedIn = true;
       req.session.userId = dbUserData.id;
+      res.status(200).json({ user: dbUserData, loggedIn: req.session.loggedIn, message: 'Account created.' });
     });
-    
-    console.log(req.body);
-    res.status(200).json('Success!');
 
   } catch (err) {
     console.log(err);
@@ -55,9 +53,7 @@ router.post('/login', async (req, res) => {
     req.session.save(() => {
       req.session.loggedIn = true;
       req.session.userId = dbUserData.id;
-      res
-      .status(200)
-      .json({ user: dbUserData, message: 'You are  lnowogged in!' });
+      res.status(200).json({ user: dbUserData, message: 'You are now logged in!' });
     });
   } catch (err) {
     console.log(err);

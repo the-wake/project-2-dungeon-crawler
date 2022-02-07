@@ -1,7 +1,7 @@
 <h2>Room: {{room.name}}</h2>
 <h6 class="sub-header"><a href="/dungeons/{{room.dungeon.id}}">{{room.dungeon.name}}</a></h6>
 
-<p class="room-desc">{{room.blurb}}</p>
+{{#if room.blurb}}<p class="room-desc">{{room.blurb}}</p>{{/if}}
 
 <h4>Creatures</h4>
 {{#unless room.creatures}}
