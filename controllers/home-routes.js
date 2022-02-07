@@ -75,6 +75,11 @@ router.get('/campaigns/:id', withAuth, async (req, res) => {
   };
 });
 
+// Serve campaign update page
+router.get('/campaigns/:id/update', withAuth, (req, res) => {
+  res.render('update-campaign', { loggedIn: req.session.loggedIn, activeCampaign: req.session.campaign });
+});
+
 // Serve dungeons page
 router.get('/dungeons', withAuth, checkCampaign, (req, res) => {
   Dungeon.findAll({
@@ -96,7 +101,7 @@ router.get('/dungeons/new', withAuth, (req, res) => {
     }
   }).then(campaignData => {
     const campaigns = campaignData.map((duns) => duns.get({ plain: true }));
-    console.log(req.session.campaign);
+    // console.log(req.session.campaign);
     res.render('add-dungeon', { campaigns, loggedIn: req.session.loggedIn, activeCampaign: req.session.campaign });
   })
 });
@@ -118,7 +123,7 @@ router.get('/dungeons/:id', withAuth, async (req, res) => {
   };
 });
 
-//get all rooms
+// get all rooms
 router.get('/rooms', withAuth, async (req, res) => {
   Room.findAll({
     where: {
@@ -133,8 +138,17 @@ router.get('/rooms', withAuth, async (req, res) => {
   })
 });
 
-// TODO: Add route for add room
-
+// render add room page
+router.get('/rooms/new', withAuth, async (req, res) => {
+  Dungeon.findAll({
+    where: {
+      is_active: true
+    },
+  }).then(dungeonData => {
+    const dungeons = dungeonData.map((dngns) => dngns.get({ plain: true }));
+    res.render('add-room', { dungeons, loggedIn: req.session.loggedIn, activeCampaign: req.session.campaign });
+  })
+});
 
 //get room by id
 router.get('/rooms/:id', withAuth, async (req, res) => {

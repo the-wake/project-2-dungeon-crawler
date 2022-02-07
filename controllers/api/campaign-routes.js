@@ -3,7 +3,7 @@ const { Campaign } = require('../../models');
 const withAuth = require('../../utils/auth.js')
 
 
-//endpoint /api/campaigns
+// endpoint /api/campaigns
 
 // route to create a new campaign.
 router.post('/', withAuth, (req, res) => {
@@ -19,23 +19,8 @@ router.post('/', withAuth, (req, res) => {
 // }).then(data => {
 
 
-//get route for updating campaign
-router.get('/update', withAuth, (req, res) => {
-    Campaign.findAll({
-        where: {
-            is_active: true
-        }
-    }
-    ).then(campaignData => {
-        const campaigns = campaignData.map((camps) => camps.get({ plain: true }));
-        res.render('update-campaign', { campaigns, loggedIn: req.session.loggedIn });
-    })
-});
-
-
-//update campaign by name then redirects to campaign page
-router.post('/', withAuth, async (req, res) => {
-    console.log(req.body);
+// update campaign by name, then redirect to campaign page
+router.post('/:id', withAuth, async (req, res) => {
     try {
         const campUpdate = await Campaign.update(
             {
@@ -43,12 +28,12 @@ router.post('/', withAuth, async (req, res) => {
             },
             {
                 where: {
-                    name: req.body.originalname,
+                    id: req.params.id,
                 },
             }
         );
         // console.log(campUpdate);
-        res.redirect('/api/campaign');
+        res.status(200).redirect(`/campaigns/${req.params.id}`);
 
     } catch (err) {
         res.status(500).json(err);
@@ -57,24 +42,24 @@ router.post('/', withAuth, async (req, res) => {
 
 
 //deactivate campaign
-router.put('/delete/:delete', withAuth, async (req, res) => {
-    try {
-        const deactivate = await Campaign.update(
-            {
-                is_active: req.body.is_active,
-            },
-            {
-                where: {
-                    id: req.params.delete,
-                },
-            }
-        );
-        res.status(200).json("Sucessfully 'deleted' capaign");
-        console.log(req)
+// router.put('/delete/:delete', withAuth, async (req, res) => {
+//     try {
+//         const deactivate = await Campaign.update(
+//             {
+//                 is_active: req.body.is_active,
+//             },
+//             {
+//                 where: {
+//                     id: req.params.delete,
+//                 },
+//             }
+//         );
+//         res.status(200).json("Sucessfully 'deleted' capaign");
+//         console.log(req)
 
-    } catch (err) {
-        res.status(500).json(err);
-    }
-});
+//     } catch (err) {
+//         res.status(500).json(err);
+//     }
+// });
 
 module.exports = router;

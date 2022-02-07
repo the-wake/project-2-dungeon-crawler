@@ -5,9 +5,7 @@ const withAuth = require('../../utils/auth.js')
 
 //endpoint /api/dungeon
 
-// TODO: find rooms attached to dungeon
-// TODO: Check that update routes are working
-
+// Could eventually add ability to find rooms and key NPCs attached to dungeon
 
 // route for adding new dungeon
 router.post('/', withAuth, (req, res) => {
@@ -22,18 +20,6 @@ router.post('/', withAuth, (req, res) => {
                 res.redirect(`/dungeons/${data.dataValues.id}`);
             })
     });
-
-// route for updating dungeon
-router.get('/update', withAuth, (req, res) => {
-    Dungeon.findAll({
-        where: {
-            is_active: true
-        }
-    }).then(dungeonData => {
-        const dungeons = dungeonData.map((duns) => duns.get({ plain: true }));
-        res.render('update-dungeon', { dungeons, loggedIn: req.session.loggedIn });
-    })
-});
 
 
 //Update dungeon then redirects to main dungeon page
@@ -57,7 +43,6 @@ router.post('/', withAuth, async (req, res) => {
         res.status(500).json(err);
     }
 });
-
 
 
 //deactivate dungeon
