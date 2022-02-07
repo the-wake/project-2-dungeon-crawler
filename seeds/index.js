@@ -3,7 +3,6 @@ const seedDungeons = require('./dungeon-seeds.js');
 const seedRooms = require('./room-seeds.js');
 const seedCreatures = require('./creature-seeds.js');
 const seedDoodads = require('./doodad-seeds.js');
-const seedConnections = require('./connection-seeds.js');
 
 const sequelize = require('../config/connection');
 
@@ -22,9 +21,6 @@ const seedAll = async () => {
 
   await seedCreatures();
   console.log('\n----- CREATURES SEEDED -----\n');
-
-  await seedConnections();
-  console.log('\n----- CONNECTIONS SEEDED -----\n');
 
   await seedDoodads();
   console.log('\n----- DOODADS SEEDED -----\n');

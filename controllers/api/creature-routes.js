@@ -19,5 +19,31 @@ router.post('/', withAuth, (req, res) => {
     })
 });
 
+// update creature by name, then redirect to campaign page
+router.post('/:id', withAuth, async (req, res) => {
+    console.log(req.body);
+    try {
+        const ctrUpdate = await Creature.update(
+            {
+                name: req.body.updatedname,
+                in_room: req.body.updatedroom,
+                hp: req.body.updatedhp,
+                is_alive: req.body.updatedalive,
+                loot: req.body.updatedloot,
+            },
+            {
+                where: {
+                    id: req.params.id,
+                },
+            }
+        );
+        
+        res.status(200).redirect(`/creatures/${req.params.id}`);
+
+    } catch (err) {
+        res.status(500).json(err);
+    }
+});
+
 
 module.exports = router;

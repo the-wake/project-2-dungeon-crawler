@@ -27,7 +27,7 @@ Creature.init(
         // This could be filled by an API call that would either put in average value or roll for hp.
         hp: {
             type: DataTypes.INTEGER,
-            allowNull: false,
+            allowNull: true,
         },
         loot: {
             type: DataTypes.STRING,
