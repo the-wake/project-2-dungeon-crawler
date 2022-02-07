@@ -36,8 +36,8 @@ router.get('/campaigns', withAuth, (req, res) => {
   Campaign.findAll({
     where: {
       is_active: true
+      }
     }
-  }
   ).then(campaignData => {
     const campaigns = campaignData.map((camps) => camps.get({ plain: true }));
     res.render('campaigns', { campaigns, loggedIn: req.session.loggedIn });
@@ -52,7 +52,15 @@ router.get('/campaigns/new', withAuth, (req, res) => {
 // Focuses a campaign by ID and renders dashboard
 router.get('/campaigns/:id', withAuth, async (req, res) => {
   try {
-    const campaignData = await Campaign.findByPk(req.params.id, { include: [{ model: Dungeon }] });
+    const campaignData = await Campaign.findByPk(req.params.id,
+      {
+        include: {
+          model: Dungeon, include: {
+            model: Room, include: {
+              model: Creature, where: {
+                key_npc: true,
+              }}}}
+      })
     // We'll want to eventually also include associated creatures in this query so that the dashboard can display key NPCs. But those relationships aren't built into the index.js yet.
     if (!campaignData) {
       res.status(404).json('No campaign with this id!');
@@ -60,6 +68,7 @@ router.get('/campaigns/:id', withAuth, async (req, res) => {
     }
 
     const campaign = campaignData.get({ plain: true });
+    console.log(campaign);
 
     req.session.save(() => {
       req.session.campaign = {

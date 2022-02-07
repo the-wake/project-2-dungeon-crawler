@@ -3,7 +3,6 @@ const Dungeon = require('./Dungeon.js');
 const Room = require('./Room.js');
 const Creature = require('./Creature.js');
 const Doodad = require('./Doodad.js');
-const Connection = require('./Connection.js');
 const User = require('./User.js');
 
 
@@ -48,15 +47,6 @@ Doodad.belongsTo(Room, {
     foreignKey: 'room_id',
 });
 
-Room.hasMany(Connection, {
-    foreignKey: 'origin_id',
-    onDelete: 'CASCADE',
-});
-
-Connection.belongsTo(Room, {
-    foreignKey: 'origin_id',
-});
-
 
 module.exports = {
     Campaign,
@@ -64,6 +54,5 @@ module.exports = {
     Room,
     Creature,
     Doodad,
-    Connection,
     User,
 };
