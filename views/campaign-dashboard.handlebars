@@ -1,0 +1,21 @@
+<h2>{{campaign.name}}</h2>
+{{!-- <p>Campaign ID #{{campaign.id}}</p> --}}
+<br>
+<a class="btn btn-outline-dark" href="/campaigns/{{campaign.id}}/update" role="button">Edit Campaign</a>
+<a class="btn btn-outline-dark" href="/dungeons/new" role="button">Create Dungeon</a>
+<br>
+<br>
+
+<h4>Dungeons</h4>
+{{#if campaign.dungeons}}
+{{#each campaign.dungeons as |dungeon|}}
+
+<div>
+    <a class="btn btn-outline-dark" href="/dungeons/{{dungeon.id}}" role="button">{{dungeon.name}}</a>
+</div>
+<hr>
+
+{{/each}}
+{{else}}
+Create a dungeon to get started!
+{{/if}}

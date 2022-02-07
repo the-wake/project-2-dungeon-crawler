@@ -1,7 +1,24 @@
-<h2>My Rooms</h2>
-<h2>{{name}}</h2>
-{{#each rooms as |room|}}
-<div>
-    <h3>{{room.name}}</h3>
+<h2>Room: {{room.name}}</h2>
+<h6 class="sub-header"><a href="/dungeons/{{room.dungeon.id}}">{{room.dungeon.name}}</a></h6>
+
+<p class="room-desc">{{room.blurb}}</p>
+
+<h4>Creatures</h4>
+{{#unless room.creatures}}
+<p>It's quiet... too quiet!</p>
+{{else}}
+{{#each room.creatures as |creature|}}
+<div class="card" style="width: 24rem;">
+    <div class="card-header"><a href="/creatures/{{creature.id}}">
+    <h6>{{#if name}}{{name}}{{else}}(unnamed creature){{/if}}</h6>
+    </a></div>
+    <ul class="list-group list-group-flush">
+        {{#if is_alive}}<li class="list-group-item">HP: {{creature.hp}}{{else}}Dead{{/if}}</li>
+        {{#if creature.loot}}<li class="list-group-item">Carrying: {{creature.loot}}</li>{{/if}}
+    </ul>
 </div>
+<hr>
 {{/each}}
+{{/unless}}
+
+<a class="btn btn-outline-dark" href="/creatures/new" role="button">Add Creature</a>

@@ -1,17 +1,21 @@
-<h2>Add New Room</h2>
+<h2>Add Room</h2>
 
-<form>
-  <div class="form-group">
-    <label for="roomName">Room Name</label>
-    <input name="roomName" type="text" id="roomName" required>
-  </div>
-  <div class="form-group">
-    <label for="roomNumber">Room Number</label>
-    <input name="room_number" type="text" id="roomNumber">
-  </div>
-  <div class="form-group">
-    <label for="ascDungeon">Associated Dungeon</label>
-    {{!-- Need to figure out best way to tie this to a dungeon --}}
-    <input name="dungeon_id" type="text" id="roomNumber">
-    <small id="dungeonHelp" </div>
-</form>
+<div class="container">
+  <form action="/api/rooms" method="POST">
+    <div class="mb-3">
+
+      <label for="room-name" class="form-label">Room Name</label>
+      <input name="name" type="text" class="form-control" id="creature-name" aria-describedby="creature-name">
+      <br>
+      <select name="dungeon_id" class="form-control" id="creature-room" aria-describedby="dungeon-id">
+        {{#each dungeons as |dungeon|}}
+        <option>{{dungeon.id}}</option>
+        {{/each}}
+      </select>
+      <label for="blurb" class="form-label">Blurb</label>
+      <textarea name="blurb" type="number" class="form-control" id="creature-loot" aria-describedby="loot"></textarea>
+
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+  </form>
+</div>

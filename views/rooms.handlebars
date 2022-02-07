@@ -1,0 +1,19 @@
+<h2>All Rooms</h2>
+<h6 class="sub-header"><a href="/campaigns/{{activeCampaign.id}}">{{activeCampaign.name}}</a></h6>
+
+{{#each rooms as |room|}}
+<div class="card" style="width: 24rem;">
+    <div class="card-header"><a href="/rooms/{{id}}">
+    <h6>{{#if name}}{{name}}{{else}}(unnamed room){{/if}}</h6>
+    </a></div>
+    {{!-- <ul class="list-group list-group-flush"> --}}
+        {{!-- <li class="list-group-item">Room: {{creature.in_room}}</li> --}}
+        {{!-- <li class="list-group-item">HP: {{creature.hp}}</li> --}}
+        {{!-- <li class="list-group-item">Status: {{#if creature.is_alive}}Alive{{else}}Dead{{/if}}</li> --}}
+        {{!-- {{#if creature.loot}}<li class="list-group-item">Carrying: {{creature.loot}}</li>{{/if}} --}}
+    {{!-- </ul> --}}
+</div>
+<hr>
+{{/each}}
+
+{{!-- TODO: Add a sidebard with links to all rooms in currently active dungeon. --}}

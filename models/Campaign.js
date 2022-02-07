@@ -4,6 +4,8 @@ const sequelize = require('../config/connection.js');
 
 class Campaign extends Model { }
 
+// TODO: Add a whiteboard value to each model. Tie the whiteboard into a textarea on each render page so that DMs can easily jot things down and save them.
+
 Campaign.init(
     {
         id: {
@@ -21,13 +23,6 @@ Campaign.init(
             allowNull: false,
             defaultValue: true,
         },
-        // user_id: {
-        //     type: DataTypes.INTEGER,
-        //     references: {
-        //         model: 'user',
-        //         key: 'id',
-        //     }
-        // },
     },
     {
         sequelize,

@@ -1,70 +1,26 @@
 const router = require('express').Router();
 const { Campaign } = require('../../models');
 const withAuth = require('../../utils/auth.js')
-//endpoint /api/campaign
-
-//route to get all campaigns
-router.get('/', withAuth, (req, res) => {
-    Campaign.findAll({
-        where: {
-            is_active: true
-        }
-    }
-    ).then(campaignData => {
-        const campaigns = campaignData.map((camps) => camps.get({ plain: true }));
-        res.render('campaign', { campaigns, loggedIn: req.session.loggedIn });
-    })
-});
-
-//get route for updating campaign
-router.get('/update', withAuth, (req, res) => {
-    Campaign.findAll({
-        where: {
-            is_active: true
-        }
-    }
-    ).then(campaignData => {
-        const campaigns = campaignData.map((camps) => camps.get({ plain: true }));
-        res.render('update-campaign', { campaigns, loggedIn: req.session.loggedIn });
-    })
-});
-
-// route to get one campaign
-router.get('/id/:id', withAuth, async (req, res) => {
-    try {
-        const campData = await Campaign.findByPk(req.params.id);
-        if (!campData) {
-            res.status(404).json({ message: 'No campaign with this id!' });
-            return;
-        }
-        const campaigns = campData.get({ plain: true });
-        res.render('campaign', { campaigns, loggedIn: req.session.loggedIn });
-        console.log(campaigns)
-    } catch (err) {
-        res.status(500).json(err);
-    };
-});
-
-//routes for add rending add-campaign and then redirecting to campaign after input
-router.route('/add')
-    .get(withAuth, (req, res) => {
-        res.render('add-campaign', { loggedIn: req.session.loggedIn });
-    })
-    .post(withAuth, (req, res) => {
-        console.log(req.body);
-        Campaign.create({
-            ...req.body,
-            // user_id: req.session.userId,
-        }).then(data => {
-            console.log('Campaign posted.')
-            res.redirect('/api/campaign');
-        })
-    });
 
 
-//update campaign by name then redirects to campaign page
-router.post('/', withAuth, async (req, res) => {
+// endpoint /api/campaigns
+
+// route to create a new campaign.
+router.post('/', withAuth, (req, res) => {
     console.log(req.body);
+    Campaign.create(req.body).then(data => {
+        res.status(200).redirect('/campaigns');
+    })
+});
+// To associate these with a specific user, we can use:
+// Campaign.create({
+//     ...req.body,
+//     user_id: req.session.userId,
+// }).then(data => {
+
+
+// update campaign by name, then redirect to campaign page
+router.post('/:id', withAuth, async (req, res) => {
     try {
         const campUpdate = await Campaign.update(
             {
@@ -72,12 +28,12 @@ router.post('/', withAuth, async (req, res) => {
             },
             {
                 where: {
-                    name: req.body.originalname,
+                    id: req.params.id,
                 },
             }
         );
         // console.log(campUpdate);
-        res.redirect('/api/campaign');
+        res.status(200).redirect(`/campaigns/${req.params.id}`);
 
     } catch (err) {
         res.status(500).json(err);
@@ -86,24 +42,24 @@ router.post('/', withAuth, async (req, res) => {
 
 
 //deactivate campaign
-router.put('/delete/:delete', withAuth, async (req, res) => {
-    try {
-        const deactivate = await Campaign.update(
-            {
-                is_active: req.body.is_active,
-            },
-            {
-                where: {
-                    id: req.params.delete,
-                },
-            }
-        );
-        res.status(200).json("Sucessfully 'deleted' capaign");
-        console.log(req)
+// router.put('/delete/:delete', withAuth, async (req, res) => {
+//     try {
+//         const deactivate = await Campaign.update(
+//             {
+//                 is_active: req.body.is_active,
+//             },
+//             {
+//                 where: {
+//                     id: req.params.delete,
+//                 },
+//             }
+//         );
+//         res.status(200).json("Sucessfully 'deleted' capaign");
+//         console.log(req)
 
-    } catch (err) {
-        res.status(500).json(err);
-    }
-});
+//     } catch (err) {
+//         res.status(500).json(err);
+//     }
+// });
 
 module.exports = router;

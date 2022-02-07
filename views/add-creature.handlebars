@@ -1,7 +1,9 @@
-<h2>Add a new dungeon</h2>
+<h2>Add a new Creature</h2>
+
+{{!-- TODO: Figure out how to get the room dropdown to display room names but submit room IDs. --}}
 
 <div class="container">
-  <form action="/api/creature/add" method="POST">
+  <form action="/api/creatures" method="POST">
     <div class="mb-3">
 
       <label for="creature-name" class="form-label">Creature Name</label>
@@ -11,7 +13,7 @@
       <input name="in_room" type="text" class="form-control" id="creature-room" aria-describedby="creature-room"> --}}
       <select name="in_room" class="form-control" id="creature-room" aria-describedby="creature-room">
         {{#each rooms as |room|}}
-        <option>{{room.name}}</option>
+        <option>{{room.id}}</option>
         {{/each}}
       </select>
       <br>

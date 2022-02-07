@@ -1,12 +1,31 @@
 <h2>Creature List</h2>
-{{#if name}}
-<a class="btn btn-outline-danger" href="#" role="button">{{name}}</a>
-{{/if}}
+{{!-- TODO: Add campaign validation. And maybe dungeon drill-down? --}}
+
+<br>
+
+<a class="btn btn-outline-dark" href="/creatures/new" role="button">Add Creature</a>
+
+<br>
+<br>
+
+{{#if creatures}}
 {{#each creatures as |creature|}}
-<div>
-    <a class="btn btn-outline-danger" href="#" role="button">{{creature.name}}</a>
-    <p>Room: {{creature.in_room}}</p>
-    <p>Status: {{#if is_alive}}Alive{{else}}Dead{{/if}}</p>
+<div class="card" style="width: 24rem;">
+    <div class="card-header"><a href="/creatures/{{creature.id}}">
+    <h6>{{#if name}}{{name}}{{else}}(unnamed creature){{/if}}</h6>
+    </a></div>
+    <ul class="list-group list-group-flush">
+        <li class="list-group-item">Room: {{creature.in_room}}</li>
+        {{!-- <li class="list-group-item">HP: {{creature.hp}}</li> --}}
+        <li class="list-group-item">Status: {{#if creature.is_alive}}Alive{{else}}Dead{{/if}}</li>
+        {{!-- {{#if creature.loot}}<li class="list-group-item">Carrying: {{creature.loot}}</li>{{/if}} --}}
+    </ul>
 </div>
+<hr>
 {{/each}}
+{{else}}
+<p>Create a creature to get started!</p>
+{{/if}}
+
+
 {{!-- Could add a partial to these that lets each one display its stats when clicked. --}}

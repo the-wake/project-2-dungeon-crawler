@@ -1,6 +1,15 @@
+{{#if loggedIn}}
+<h1>Welcome to Dungeon Crawler!</h1>
+<hr>
+<h5>Where would you like to go?</h5>
+<ul>
+    <li><h6><a href="/campaigns">Campaigns</a></h6></li>
+    <li><h6><a href="/dungeons">Dungeons</a></h6></li>
+    <li><h6><a href="/creatures">Creatures</a></h6></li>
+</ul>
+{{else}}
 <h1>Welcome to Dungeon Crawler!</h1>
 <br>
-
 <h2>Stay a while and listen!</h2>
 {{!-- <h1>Oldbook.css</h1>
 <h2>Introduction</h2> --}}
@@ -22,6 +31,10 @@ It's a single click to access your:
     <b>Secrets</b>, <b>Traps</b>, and many more options! After creating everything for your <b>Campaign</b> you can then
     access that information by pressing the corresponding button within your user page.
 </p>
+{{/if}}
+
+
+
 {{!-- <p class='has-dropcap'>Use the class "has-dropcap" to add dropcaps to the start of paragraphs. Testing testing
     testing,
     how does this even work as a drop cap thing anyways. Testing testing testing, how does this even work as a drop

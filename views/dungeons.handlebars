@@ -1,0 +1,28 @@
+<h2>Dungeons</h2>
+<h6 class="sub-header"><a href="/campaigns/{{activeCampaign.id}}">{{activeCampaign.name}}</a></h6>
+
+<a class="btn btn-outline-dark" href="/dungeons/new" role="button">Create Dungeon</a>
+
+<br>
+<br>
+
+{{#if dungeons}}
+{{#each dungeons as |dungeon|}}
+<div class="card" style="width: 24rem;">
+    <div class="card-header"><a href="/dungeons/{{dungeon.id}}">
+    <h6>{{#if name}}{{name}}{{else}}(Unnamed Dungeon){{/if}}</h6>
+    </a></div>
+    <ul class="list-group list-group-flush">
+        {{!-- <li class="list-group-item">Campaign: {{dungeon.campaign.name}}</li> --}}
+        {{!-- {{#if dungeon.rooms}}
+            {{#each dungeon.rooms as |room|}}
+            <p class="list-group-item">{{room.name}}</p>
+            {{/each}}
+        {{/if}} --}}
+    </ul>
+</div>
+<br>
+{{/each}}
+{{else}}
+<p>Create a Dungeon to get started!</p>
+{{/if}}
