@@ -66,9 +66,9 @@ router.get('/campaigns/:id', withAuth, async (req, res) => {
         id: campaign.id,
         name: campaign.name
       }
+      res.render('campaign-dashboard', { campaign, loggedIn: req.session.loggedIn, activeCampaign: req.session.campaign });
+      console.log(req.session.campaign);
     });
-
-    res.render('campaign-dashboard', { campaign, loggedIn: req.session.loggedIn, activeCampaign: req.session.campaign });
 
   } catch (err) {
     res.status(500).json(err);
@@ -166,7 +166,7 @@ router.get('/rooms/:id', withAuth, async (req, res) => {
     }
     const room = roomData.get({ plain: true });
     // console.log(room);
-    res.render('room', { room, loggedIn: req.session.loggedIn });
+    res.render('room', { room, loggedIn: req.session.loggedIn, activeCampaign: req.session.campaign });
   } catch (err) {
     res.status(500).json(err);
   };
@@ -181,7 +181,7 @@ router.get('/creatures', withAuth, (req, res) => {
   })
     .then(creatureData => {
       const creatures = creatureData.map((ctrs) => ctrs.get({ plain: true }));
-      res.render('creatures', { creatures, loggedIn: req.session.loggedIn });
+      res.render('creatures', { creatures, loggedIn: req.session.loggedIn, activeCampaign: req.session.campaign });
     })
 });
 
@@ -194,7 +194,7 @@ router.get('/creatures/new', withAuth, (req, res) => {
   })
     .then(roomData => {
       const rooms = roomData.map((rms) => rms.get({ plain: true }));
-      res.render('add-creature', { rooms, loggedIn: req.session.loggedIn });
+      res.render('add-creature', { rooms, loggedIn: req.session.loggedIn, activeCampaign: req.session.campaign });
     })
 });
 
@@ -207,7 +207,7 @@ router.get('/creatures/:id', withAuth, async (req, res) => {
       return;
     }
     const creature = ctrData.get({ plain: true });
-    res.render('creature', { creature, loggedIn: req.session.loggedIn });
+    res.render('creature', { creature, loggedIn: req.session.loggedIn, activeCampaign: req.session.campaign });
 
   } catch (err) {
     res.status(500).json(err);

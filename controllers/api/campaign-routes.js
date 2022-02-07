@@ -21,6 +21,7 @@ router.post('/', withAuth, (req, res) => {
 
 // update campaign by name, then redirect to campaign page
 router.post('/:id', withAuth, async (req, res) => {
+    // console.log(typeof req.body.updatedname);
     try {
         const campUpdate = await Campaign.update(
             {
@@ -32,8 +33,15 @@ router.post('/:id', withAuth, async (req, res) => {
                 },
             }
         );
-        // console.log(campUpdate);
-        res.status(200).redirect(`/campaigns/${req.params.id}`);
+
+        req.session.save(() => {
+            req.session.campaign = {
+                id: campUpdate.id,
+                name: campUpdate.name
+            }
+            // console.log(req.session.campaign);
+            res.status(200).redirect(`/campaigns/${req.params.id}`);
+        });
 
     } catch (err) {
         res.status(500).json(err);
