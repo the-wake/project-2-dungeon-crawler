@@ -207,6 +207,43 @@ router.get('/creatures/new', withAuth, (req, res) => {
     })
 });
 
+// Serves update-creature page.
+router.get('/creatures/:id/update', withAuth, async (req, res) => {
+  try {
+    const roomData = await Room.findAll({
+      where: {
+        is_active: true,
+      },
+      raw: true
+    });
+    
+    const ctrData = await Creature.findByPk(req.params.id, { include: { model: Room } });
+
+    if (!ctrData) {
+      res.status(404).json('No creature with this id!');
+      return;
+    }
+
+    console.log(roomData);
+    const creature = ctrData.get({ plain: true });
+    // const rooms = roomData.get({ plain: true });
+    console.log(roomData);
+    for ( let i = 0; i < roomData.length; i ++ ) {
+     if ( roomData[i].id === creature.in_room ) {
+       roomData[i].creature_room = true;
+     } else {
+       roomData[i].creature_room = false;
+     }
+    }
+    
+    res.render('update-creature', { creature, roomData, loggedIn: req.session.loggedIn, activeCampaign: req.session.campaign })
+
+  } catch (err) {
+    console.log(err);
+    res.status(500).json(err);
+  }
+});
+
 //get route to find a specific creature
 router.get('/creatures/:id', withAuth, async (req, res) => {
   try {
