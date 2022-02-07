@@ -24,7 +24,7 @@
       </li>
       {{#if loggedIn}}
       <li class="nav-item">
-        <a class="nav-link" href="/campaigns">Campaigns</a>
+        {{#if activeCampaign}}<a class="nav-link" href="/campaigns/{{activeCampaign.id}}">{{activeCampaign.name}}</a>{{else}}<a class="nav-link" href="/campaigns">Campaigns</a>{{/if}}
       </li>
       <li class="nav-item">
         <a class="nav-link logout-link">Sign Out</a>
