@@ -9,11 +9,11 @@ const doodadRoutes = require('./doodad-routes');
 
 
 router.use('/user', userRoutes);
-router.use('/campaign', campaignRoutes);
-router.use('/dungeon', dungeonRoutes);
-router.use('/room', roomRoutes);
-router.use('/creature', creatureRoutes);
-router.use('/doodad', doodadRoutes);
+router.use('/campaigns', campaignRoutes);
+router.use('/dungeons', dungeonRoutes);
+router.use('/rooms', roomRoutes);
+router.use('/creatures', creatureRoutes);
+router.use('/doodads', doodadRoutes);
 
 
 module.exports = router;

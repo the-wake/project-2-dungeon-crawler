@@ -17,11 +17,11 @@ Creature.init(
         },
         // If creating a creature from a room, we can make this auto-fill to the currently focused room in the API call.
         in_room: {
-            type: DataTypes.STRING,
+            type: DataTypes.INTEGER,
             allowNull: true,
             references: {
                 model: 'room',
-                key: 'name',
+                key: 'id',
             },
         },
         // This could be filled by an API call that would either put in average value or roll for hp.

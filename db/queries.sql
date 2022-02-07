@@ -13,6 +13,11 @@
 -- -- Can do another JOIN to grab from another table.
 
 
-SELECT room.id, room.name, connection.destination_id, connection.destination_name
-FROM connection
-JOIN room ON connection.origin_id = room.id;
+-- SELECT room.id, room.name, connection.destination_id, connection.destination_name
+-- FROM connection
+-- JOIN room ON connection.origin_id = room.id;
+
+
+SELECT room.id, room.name, creature.id, creature.name
+FROM creature
+JOIN room ON creature.in_room = room.name;

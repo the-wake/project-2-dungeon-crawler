@@ -1,12 +1,13 @@
 <h2>Add a new campaign</h2>
 <div class="container">
 
-
-    <form action="/api/campaign/add" method="POST">
+    <form action="/api/campaigns" method="POST">
         <div class="mb-3">
             <label for="campaign-name" class="form-label">What is your campaign name?</label>
             <input name="name" type="text" class="form-control" id="campaign-name" aria-describedby="campaign-name">
         </div>
-        <button type="submit" class="btn btn-primary">Submit</button>
+        <button type="submit" class="btn btn-primary">Create Campaign</button>
+        {{!-- Looks better with the following, but doesn't work right now for some reason.
+        <a type="submit" class="btn btn-outline-dark" role="button">Create Campaign</a> --}}
     </form>
 </div>

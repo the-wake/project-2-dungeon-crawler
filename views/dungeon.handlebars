@@ -1,10 +1,19 @@
-<h2>Dungeon List</h2>
-{{#if name}}
-<a class="btn btn-outline-danger" href="#" role="button">{{name}}</a>
-{{/if}}
-{{#each dungeons as |dungeon|}}
+<h2>{{dungeon.name}}</h2>
+{{!-- <p>Dungeon ID #{{dungeon.id}}</p> --}}
+<h6 class="sub-header"><a href="/campaigns/{{activeCampaign.id}}">{{activeCampaign.name}}</a></h6>
+
+{{#if dungeon.rooms}}
+<h4>Rooms</h4>
+{{#each dungeon.rooms as |room|}}
+
 <div>
-    <a class="btn btn-outline-dark" href="#" role="button">{{dungeon.name}}</a>
-    <p>Dungeon ID #{{dungeon.id}}</p>
+    <a class="btn btn-outline-dark" href="/rooms/{{room.id}}" role="button">{{room.name}}</a>
 </div>
+<hr>
+
 {{/each}}
+{{else}}
+<p>Create a room to get started!</p>
+{{/if}}
+<br>
+<a class="btn btn-outline-dark" href="/campaigns/new" role="button">Create Campaign</a>

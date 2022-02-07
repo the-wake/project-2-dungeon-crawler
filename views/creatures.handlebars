@@ -1,5 +1,12 @@
 <h2>Creature List</h2>
+{{!-- TODO: Add campaign validation. And maybe dungeon drill-down? --}}
 
+<a class="btn btn-outline-dark" href="/creatures/new" role="button">Add Creature</a>
+
+<br>
+<br>
+
+{{#if creatures}}
 {{#each creatures as |creature|}}
 <div class="card" style="width: 24rem;">
     <div class="card-header"><a href="/creatures/{{creature.id}}">
@@ -14,4 +21,9 @@
 </div>
 <hr>
 {{/each}}
+{{else}}
+<p>Create a creature to get started!</p>
+{{/if}}
+
+
 {{!-- Could add a partial to these that lets each one display its stats when clicked. --}}

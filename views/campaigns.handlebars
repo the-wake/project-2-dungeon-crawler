@@ -1,8 +1,16 @@
 <h2>My Campaigns</h2>
-{{#each campaigns as |campaign|}}
-<div>
-    <a class="btn btn-outline-dark" href="/campaigns/{{id}}" role="button">{{name}}</a>
-    {{!-- <p>Campaign ID #{{id}}</p> --}}
+{{#if campaigns}}
+
+<div class="card creature-card" style="width: 28rem;">
+    <ul class="list-group list-group-flush">
+        {{#each campaigns as |campaign|}}
+        <li class="list-group-item"><a href="/campaigns/{{campaign.id}}">{{campaign.name}}</a></li>
+        {{/each}}
+
+    </ul>
 </div>
-<hr>
-{{/each}}
+{{else}}
+Create a campaign to get started!
+{{/if}}
+<br>
+<a class="btn btn-outline-dark" href="/campaigns/new" role="button">Create Campaign</a>

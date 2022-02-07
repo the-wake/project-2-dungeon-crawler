@@ -1,6 +1,11 @@
 <h2>Campaign: {{campaign.name}}</h2>
-<p>Campaign ID #{{campaign.id}}</p>
+{{!-- <p>Campaign ID #{{campaign.id}}</p> --}}
+<br>
+<a class="btn btn-outline-dark" href="/dungeons/new" role="button">Create Dungeon</a>
+<br>
+<br>
 
+<h4>Dungeons</h4>
 {{#if campaign.dungeons}}
 {{#each campaign.dungeons as |dungeon|}}
 
