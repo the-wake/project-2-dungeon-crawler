@@ -36,8 +36,8 @@ router.get('/campaigns', withAuth, (req, res) => {
   Campaign.findAll({
     where: {
       is_active: true
+      }
     }
-  }
   ).then(campaignData => {
     const campaigns = campaignData.map((camps) => camps.get({ plain: true }));
     res.render('campaigns', { campaigns, loggedIn: req.session.loggedIn });
@@ -52,7 +52,15 @@ router.get('/campaigns/new', withAuth, (req, res) => {
 // Focuses a campaign by ID and renders dashboard
 router.get('/campaigns/:id', withAuth, async (req, res) => {
   try {
-    const campaignData = await Campaign.findByPk(req.params.id, { include: [{ model: Dungeon }] });
+    const campaignData = await Campaign.findByPk(req.params.id,
+      {
+        include: {
+          model: Dungeon, include: {
+            model: Room, include: {
+              model: Creature, where: {
+                key_npc: true,
+              }}}}
+      })
     // We'll want to eventually also include associated creatures in this query so that the dashboard can display key NPCs. But those relationships aren't built into the index.js yet.
     if (!campaignData) {
       res.status(404).json('No campaign with this id!');
@@ -60,6 +68,7 @@ router.get('/campaigns/:id', withAuth, async (req, res) => {
     }
 
     const campaign = campaignData.get({ plain: true });
+    console.log(campaign);
 
     req.session.save(() => {
       req.session.campaign = {
@@ -196,6 +205,43 @@ router.get('/creatures/new', withAuth, (req, res) => {
       const rooms = roomData.map((rms) => rms.get({ plain: true }));
       res.render('add-creature', { rooms, loggedIn: req.session.loggedIn, activeCampaign: req.session.campaign });
     })
+});
+
+// Serves update-creature page.
+router.get('/creatures/:id/update', withAuth, async (req, res) => {
+  try {
+    const roomData = await Room.findAll({
+      where: {
+        is_active: true,
+      },
+      raw: true
+    });
+    
+    const ctrData = await Creature.findByPk(req.params.id, { include: { model: Room } });
+
+    if (!ctrData) {
+      res.status(404).json('No creature with this id!');
+      return;
+    }
+
+    console.log(roomData);
+    const creature = ctrData.get({ plain: true });
+    // const rooms = roomData.get({ plain: true });
+    console.log(roomData);
+    for ( let i = 0; i < roomData.length; i ++ ) {
+     if ( roomData[i].id === creature.in_room ) {
+       roomData[i].creature_room = true;
+     } else {
+       roomData[i].creature_room = false;
+     }
+    }
+    
+    res.render('update-creature', { creature, roomData, loggedIn: req.session.loggedIn, activeCampaign: req.session.campaign })
+
+  } catch (err) {
+    console.log(err);
+    res.status(500).json(err);
+  }
 });
 
 //get route to find a specific creature
