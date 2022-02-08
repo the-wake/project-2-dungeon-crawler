@@ -8,6 +8,13 @@
     background-color: #8b0000; 
 }
 
+a{
+    color: black;
+}
+a:hover {
+    color: #8b0000;
+}
+
 .sub-header {
     width: 100%;
     text-align: right;
